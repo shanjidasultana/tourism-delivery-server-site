@@ -25,6 +25,8 @@ async function run() {
         const tours = await cursor.toArray();
           res.json(tours)
       })
+
+
       app.get('/tours/:id',async(req,res)=>{
         const id = req.params.id;
         const query = { _id: ObjectId(id) };
@@ -32,11 +34,15 @@ async function run() {
         res.json(tour);
 
       })
+
+
       app.post('/tours', async (req, res) => {
         const tours = req.body;
         const result = await toursCollection.insertOne(tours);
         console.log(result);
-    });
+      });
+
+
       app.get('/bookingList/:id',async(req,res)=>{
         const id = req.params.id;
         console.log(id);
@@ -45,6 +51,8 @@ async function run() {
         res.json(tour);
 
       })
+
+
       // update booking
       app.put('/bookingList/:id', async (req, res) => {
         const id = req.params.id;
@@ -66,6 +74,8 @@ async function run() {
         console.log('updating', id)
         res.json(result)
       })
+
+
       // delete booking
       app.delete('/bookingList/:id', async (req, res) => {
         const _id = req.params.id;
@@ -73,8 +83,9 @@ async function run() {
         const result = await bookingCollection.deleteOne(query);
         res.json(result);
       })
-      // get booking
 
+
+      // get booking
       app.get('/bookingList', async (req, res) => {
         const cursor = bookingCollection.find({});
         const email=req.query.email;
@@ -91,25 +102,30 @@ async function run() {
         
         res.json(exit);
       });
-      // post bookingList
 
+
+      // post bookingList
       app.post('/bookingList', async (req, res) => {
         const booking = req.body;
         const result = await bookingCollection.insertOne(booking);
-    });
-    app.get('/destinations',async(req,res)=>{
-      const cursor = destinationCollection.find({});
-      const destination = await cursor.toArray();
-      res.json(destination)
+      });
 
-    })
-    app.get('/destinations/:id',async(req,res)=>{
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const des= await destinationCollection.findOne(query);
-      res.json(des);
 
-    })
+      app.get('/destinations',async(req,res)=>{
+        const cursor = destinationCollection.find({});
+        const destination = await cursor.toArray();
+        res.json(destination)
+
+      })
+
+      
+      app.get('/destinations/:id',async(req,res)=>{
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) };
+        const des= await destinationCollection.findOne(query);
+        res.json(des);
+
+      })
 
       
      
